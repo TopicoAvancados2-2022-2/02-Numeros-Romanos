@@ -54,4 +54,40 @@ describe("Testando conversao de numeros romanos", () => {
         //assert
         expect(retorno).toEqual("CXCVIII");
     })
+
+    test("Espero que ao mandar o valor -1, seja retornado uma mensagem de Erro", () => {
+        //arrange
+        const sut = new Romanos();
+        //action
+        const retorno = () => { sut.convert(-1) }
+        //assert
+        expect(retorno).toThrow("número não pode ser negativo");
+    })
+
+    test("Espero que ao mandar o valor acima do limite, seja retornado uma mensagem de Erro", () => {
+        //arrange
+        const sut = new Romanos();
+        //action
+        const retorno = () => { sut.convert(sut.limite_romanos()+1) }
+        //assert
+        expect(retorno).toThrow("número não disponível");
+    })
+
+    test("Espero que ao mandar o valor 255, seja retornado CCLV", () => {
+        //arrange
+        const sut = new Romanos();
+        //action
+        const retorno = sut.convert(255);
+        //assert
+        expect(retorno).toEqual("CCLV");
+    })
+
+    test("Espero que ao mandar o valor 399, seja retornado CCCXCIX", () => {
+        //arrange
+        const sut = new Romanos();
+        //action
+        const retorno = sut.convert(399);
+        //assert
+        expect(retorno).toEqual("CCCXCIX");
+    })
 })

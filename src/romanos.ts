@@ -5,9 +5,19 @@ interface IRomanos {
 class Romanos implements IRomanos {
     unidades = ['', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX']
     dezenas = ['', 'X', 'XX', 'XXX', 'XL', 'L', 'LX', 'LXX', 'LXXX', 'XC']
-    centenas = ['', 'C']
+    centenas = ['', 'C', 'CC', 'CCC']
+
+    limite_romanos(): number {
+        return this.unidades.length + this.dezenas.length * 10 + this.centenas.length * 100;
+    }
 
     convert(numero: number): string {
+        if (numero < 0)
+            throw new Error("número não pode ser negativo"); 
+
+        if (numero > this.limite_romanos())
+            throw new Error("número não disponível");
+
         const numeroString = numero.toString().split('').reverse();
         
         const u = parseInt(numeroString[0]);
